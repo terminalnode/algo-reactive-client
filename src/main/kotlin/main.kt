@@ -19,26 +19,20 @@ fun main() {
 		size = IntSize(300, 300)
 	) {
 		//var text by remember { mutableStateOf("Hello, World!") }
-		var text by mutableStateOf("Initial value")
+		var lastBlockSummary by mutableStateOf(ShortBlockSummary())
 
 		CoroutineScope(IO).launch {
-			val webClient = WebClient.create("http://localhost:8080")
-
-			val response = webClient.get()
+			WebClient.create("http://localhost:8080")
+				.get()
 				.uri("/algo/block/summary-flux")
 				.retrieve()
 				.bodyToFlux<ShortBlockSummary>()
-				.map {
-					return@map it
-				}
-			response.subscribe {
-				text = it.toString()
-			}
+				.subscribe { lastBlockSummary = it }
 		}
 
 		MaterialTheme {
-			Button(onClick = { text = "Hello, Desktop!" }) {
-				Text(text)
+			Button({ println("This button doesn't do anything xD") }) {
+				Text(lastBlockSummary.toFunString())
 			}
 		}
 	}
