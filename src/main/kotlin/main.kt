@@ -1,7 +1,7 @@
 import androidx.compose.desktop.Window
-import androidx.compose.material.Text
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -12,9 +12,6 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.bodyToFlux
-import reactor.netty.http.client.HttpClient
-import reactor.netty.tcp.TcpClient
-import se.newton.algocompose.algoapi.AlgoApiEndpoint
 import se.newton.algocompose.algoapi.models.ShortBlockSummary
 
 fun main() = Window(
