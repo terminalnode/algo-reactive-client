@@ -1,11 +1,14 @@
 import androidx.compose.desktop.Window
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.IntSize
+import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
@@ -31,8 +34,13 @@ fun main() {
 		}
 
 		MaterialTheme {
-			Button({ println("This button doesn't do anything xD") }) {
-				Text(lastBlockSummary.toFunString())
+			Column(Modifier.fillMaxSize(), Arrangement.spacedBy(5.dp)) {
+				Button({ println("This button doesn't do anything xD") }) {
+					Text(lastBlockSummary.toFunString())
+				}
+				Button({ println("This button doesn't do anything xD") }) {
+					Text(lastBlockSummary.toFunString())
+				}
 			}
 		}
 	}
