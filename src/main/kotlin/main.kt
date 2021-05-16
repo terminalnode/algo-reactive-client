@@ -27,19 +27,17 @@ fun main() {
 					},
 					content = {
 						Column {
-							Column {
-								Row {
-									AppState.blockSummaryList.forEach {
-										Canvas(Modifier.size(30.dp, 30.dp)) {
-											drawRect(color = Color.Red, size = Size(25.0F, 5.0F + (it.transactions) * 10.0F))
-										}
+							Text("Last block: ${AppState.lastBlockSummary.round}")
+							Text("Blocks received: ${AppState.blockSummaryList.size}")
+
+							Row {
+								AppState.blockSummaryList.forEach {
+									Canvas(Modifier.size(30.dp, 30.dp)) {
+										drawRect(color = Color.Red, size = Size(25.0F, 5.0F + (it.transactions) * 10.0F))
 									}
 								}
-								Row {
-									Text("Last block: ${AppState.lastBlockSummary.round}")
-									Text("Blocks received: ${AppState.blockSummaryList.size}")
-								}
 							}
+
 							AppState.blockSummaryList.forEach { it.cardBody() }
 						}
 					}
