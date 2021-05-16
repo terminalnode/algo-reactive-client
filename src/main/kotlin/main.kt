@@ -1,9 +1,13 @@
 import androidx.compose.desktop.Window
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -23,6 +27,7 @@ fun main() {
 	) {
 		//var text by remember { mutableStateOf("Hello, World!") }
 		var lastBlockSummary by mutableStateOf(ShortBlockSummary())
+		val blockSummaryList = mutableStateListOf<ShortBlockSummary>()
 
 		CoroutineScope(IO).launch {
 			WebClient.create("http://localhost:8080")
@@ -30,17 +35,29 @@ fun main() {
 				.uri("/algo/block/summary-flux")
 				.retrieve()
 				.bodyToFlux<ShortBlockSummary>()
-				.subscribe { lastBlockSummary = it }
+				.subscribe {
+					lastBlockSummary = it
+					if (blockSummaryList.size >= 5) blockSummaryList.removeLast()
+					blockSummaryList.add(0, it)
+				}
 		}
 
 		MaterialTheme {
 			Column(Modifier.fillMaxSize(), Arrangement.spacedBy(5.dp)) {
-				Button({ println("This button doesn't do anything xD") }) {
-					Text(lastBlockSummary.toFunString())
-				}
-				Button({ println("This button doesn't do anything xD") }) {
-					Text(lastBlockSummary.toFunString())
-				}
+				Scaffold(
+					topBar = {
+						TopAppBar(
+							title = { Text("Newton AlgoCompose (${lastBlockSummary.net})") }
+						)
+					},
+					content = {
+						Column {
+							Text("Last block: ${lastBlockSummary.round}")
+							Text("Blocks received: ${blockSummaryList.size}")
+							blockSummaryList.forEach { it.cardBody() }
+						}
+					}
+				)
 			}
 		}
 	}
