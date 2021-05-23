@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import reactor.netty.http.client.HttpClient
 import se.newton.algocompose.algoapi.models.ShortBlockSummary
-import utils.toFlux
+import se.newton.algocompose.utils.toFlux
 
 object AppState {
 	private const val baseUrl = "http://localhost:8080"

@@ -1,4 +1,4 @@
-package utils
+package se.newton.algocompose.utils
 
 import com.google.gson.Gson
 import io.netty.buffer.ByteBuf
