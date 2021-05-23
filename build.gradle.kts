@@ -20,10 +20,10 @@ repositories {
 
 dependencies {
 	implementation(compose.desktop.currentOs)
-	implementation("org.springframework.boot:spring-boot-starter-webflux")
 	implementation("com.google.code.gson:gson:2.8.6")
 
 	// Reactor
+	implementation("io.projectreactor:reactor-core:3.4.6")
 	implementation("io.projectreactor.netty:reactor-netty-core:1.0.6")
 	implementation("io.projectreactor.netty:reactor-netty-http:1.0.6")
 	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.1.3")
