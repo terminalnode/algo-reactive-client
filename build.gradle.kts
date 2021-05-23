@@ -19,29 +19,18 @@ repositories {
 }
 
 dependencies {
-	val retrofitVersion = "2.9.0"
-	val okhttpVersion = "4.9.1"
 	implementation(compose.desktop.currentOs)
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
+	implementation("com.google.code.gson:gson:2.8.6")
+
+	// Reactor
+	implementation("io.projectreactor.netty:reactor-netty-core:1.0.6")
+	implementation("io.projectreactor.netty:reactor-netty-http:1.0.6")
+	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.1.3")
 
 	// Kotlin
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.1.3")
-
-	// Retrofit
-	implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
-	implementation("com.squareup.okhttp3:logging-interceptor:$okhttpVersion")
-	implementation ("com.squareup.retrofit2:retrofit:$retrofitVersion") {
-		// exclude Retrofit’s OkHttp peer-dependency module and define our own module import
-		exclude(module = "okhttp")
-	}
-	implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
-	implementation("com.jakewharton.retrofit:retrofit2-reactor-adapter:2.1.0")
-	implementation("com.squareup.retrofit2:adapter-rxjava:2.9.0")
-
-	implementation("io.projectreactor.netty:reactor-netty-core:1.0.6")
-	implementation("io.projectreactor.netty:reactor-netty-http:1.0.6")
 }
 
 tasks.withType<KotlinCompile>() {

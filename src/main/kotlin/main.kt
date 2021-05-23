@@ -33,7 +33,9 @@ fun main() {
 							Row {
 								AppState.blockSummaryList.forEach {
 									Canvas(Modifier.size(30.dp, 30.dp)) {
-										drawRect(color = Color.Red, size = Size(25.0F, 5.0F + (it.transactions) * 10.0F))
+										drawRect(
+											color = Color.Red,
+											size = Size(25.0F, 5.0F + (it.transactions) * 10.0F))
 									}
 								}
 							}
