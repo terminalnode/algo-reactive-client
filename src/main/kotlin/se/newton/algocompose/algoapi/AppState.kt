@@ -13,11 +13,14 @@ import se.newton.algocompose.utils.toFlux
 
 object AppState {
 	private const val baseUrl = "http://localhost:8080"
-	private var lastBlockSummaryInternal by mutableStateOf(ShortBlockSummary())
+
+	var blocksReceivedCount by mutableStateOf(0)
+	private set
+
+	var lastBlockSummary by mutableStateOf(ShortBlockSummary())
+	private set
 
 	// lastBlockSummary has a private setter
-	val lastBlockSummary
-		get() = lastBlockSummaryInternal
 	val blockSummaryList = mutableStateListOf<ShortBlockSummary>()
 
 	init {
@@ -28,8 +31,12 @@ object AppState {
 				.responseContent()
 				.toFlux<ShortBlockSummary>()
 				.subscribe {
-					lastBlockSummaryInternal = it
-					if (blockSummaryList.size >= 5) blockSummaryList.removeLast()
+					lastBlockSummary = it
+					blocksReceivedCount += 1
+
+					if (blockSummaryList.size >= 5) {
+						blockSummaryList.removeLast()
+					}
 					blockSummaryList.add(0, it)
 				}
 		}

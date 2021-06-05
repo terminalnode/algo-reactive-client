@@ -7,7 +7,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import se.newton.algocompose.algoapi.AppState
 
 data class ShortBlockSummary(
 	var net: String = "unknown",
@@ -20,16 +22,26 @@ data class ShortBlockSummary(
 
 	@Composable
 	fun cardBody() {
-		Card(
-			modifier = Modifier.padding(10.dp).fillMaxWidth(),
-			border = BorderStroke(2.dp, Color.Magenta),
+		return Card(
+			modifier = Modifier
+				.padding(start = 10.dp, top = 10.dp, end = 10.dp)
+				.requiredWidth(230.dp),
+			border = BorderStroke(2.dp, Color.Black),
 		) {
 			Column(
 				modifier = Modifier.padding(5.dp),
 				verticalArrangement = Arrangement.spacedBy(2.dp)
 			) {
-				Text("Round $round")
-				Text("$transactions txs")
+				Row {
+					Column {
+						Text(text = "Round:", fontWeight = FontWeight.Bold)
+						Text(text = "Transactions:", fontWeight = FontWeight.Bold)
+					}
+					Column(Modifier.padding(start = 10.dp)) {
+						Text(text = "$round")
+						Text(text = "$transactions txs")
+					}
+				}
 			}
 		}
 	}

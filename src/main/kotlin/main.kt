@@ -8,6 +8,8 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import se.newton.algocompose.algoapi.AppState
@@ -22,25 +24,41 @@ fun main() {
 				Scaffold(
 					topBar = {
 						TopAppBar(
-							title = { Text("Newton AlgoCompose (${AppState.lastBlockSummary.net})") }
+							title = { Text(
+								text = "Newton AlgoCompose (${AppState.lastBlockSummary.net})",
+								color = Color.White) },
+							backgroundColor = Color.Black,
 						)
 					},
 					content = {
-						Column {
-							Text("Last block: ${AppState.lastBlockSummary.round}")
-							Text("Blocks received: ${AppState.blockSummaryList.size}")
+						Row {
+							Column {
+								AppState.blockSummaryList.map { it.cardBody() }
+							}
 
-							Row {
-								AppState.blockSummaryList.forEach {
-									Canvas(Modifier.size(30.dp, 30.dp)) {
-										drawRect(
-											color = Color.Red,
-											size = Size(25.0F, 5.0F + (it.transactions) * 10.0F))
+							Column(Modifier.padding(10.dp)) {
+								Row {
+									Column {
+										Text(text = "Last block:", fontWeight = FontWeight.Bold)
+										Text(text = "Blocks received:", fontWeight = FontWeight.Bold)
+									}
+									Column(Modifier.padding(start = 10.dp)) {
+										Text(text = "${AppState.lastBlockSummary.round}")
+										Text(text = "${AppState.blocksReceivedCount}")
+									}
+								}
+
+								Row {
+									AppState.blockSummaryList.forEach {
+										Canvas(Modifier.size(30.dp, 30.dp)) {
+											drawRect(
+												color = Color.Red,
+												size = Size(25.0F, 5.0F + (it.transactions) * 10.0F)
+											)
+										}
 									}
 								}
 							}
-
-							AppState.blockSummaryList.forEach { it.cardBody() }
 						}
 					}
 				)
