@@ -115,8 +115,8 @@ fun BlocksToKeepSetterButton(isIncrease: Boolean, onClick: (() -> Unit)) {
 	val buttonModifier = Modifier.size(30.dp)
 	val increaseOrDecrease = if (isIncrease) "Increase" else "Decrease"
 
-	val isEnabled = if (isIncrease) AppState.blockLimit > AppState.blockLimitMin
-	else AppState.blockLimit < AppState.blockLimitMax
+	val isEnabled = if (isIncrease) AppState.blockLimit < AppState.blockLimitMax
+	else AppState.blockLimit > AppState.blockLimitMin
 
 	IconButton(onClick = onClick, enabled = isEnabled) {
 		Icon(

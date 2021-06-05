@@ -29,7 +29,7 @@ object AppState {
 	// lastBlockSummary has a private setter
 	val blockSummaryList = mutableStateListOf<ShortBlockSummary>()
 
-	fun changeBlockLimit(newValue: Int) {
+	private fun changeBlockLimit(newValue: Int) {
 		if (newValue in blockLimitMin..blockLimitMax) {
 			blockLimit = newValue
 		}
@@ -54,7 +54,7 @@ object AppState {
 					lastBlockSummary = it
 					blocksReceivedCount += 1
 
-					if (blockSummaryList.size >= blockLimit) {
+					while (blockSummaryList.size >= blockLimit) {
 						blockSummaryList.removeLast()
 					}
 					blockSummaryList.add(0, it)
