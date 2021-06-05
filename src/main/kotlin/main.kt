@@ -31,10 +31,12 @@ fun main() {
 					},
 					content = {
 						Row {
-							Column {
+							// Left column
+							Column(Modifier.defaultMinSize(minWidth = 250.dp)) {
 								AppState.blockSummaryList.map { it.cardBody() }
 							}
 
+							// Right column
 							Column(Modifier.padding(10.dp)) {
 								Row {
 									Column {
@@ -47,12 +49,14 @@ fun main() {
 									}
 								}
 
-								Row {
+								Column {
 									AppState.blockSummaryList.forEach {
-										Canvas(Modifier.size(30.dp, 30.dp)) {
+										Canvas(Modifier.size(height = 30.dp, width = 55.dp)) {
 											drawRect(
 												color = Color.Red,
-												size = Size(25.0F, 5.0F + (it.transactions) * 10.0F)
+												size = Size(
+													width = 5.0F + (it.transactions) * 10,
+													height = 25.0F)
 											)
 										}
 									}
