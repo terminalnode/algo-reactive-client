@@ -20,8 +20,28 @@ object AppState {
 	var lastBlockSummary by mutableStateOf(ShortBlockSummary())
 	private set
 
+	const val blockLimitMin = 5
+	const val blockLimitMax = 25
+
+	var blockLimit by mutableStateOf(10)
+	private set
+
 	// lastBlockSummary has a private setter
 	val blockSummaryList = mutableStateListOf<ShortBlockSummary>()
+
+	fun changeBlockLimit(newValue: Int) {
+		if (newValue in blockLimitMin..blockLimitMax) {
+			blockLimit = newValue
+		}
+	}
+
+	fun incrementBlockLimit() {
+		changeBlockLimit(blockLimit + 1)
+	}
+
+	fun decrementBlockLimit() {
+		changeBlockLimit(blockLimit - 1)
+	}
 
 	init {
 		CoroutineScope(Dispatchers.IO).launch {
@@ -34,7 +54,7 @@ object AppState {
 					lastBlockSummary = it
 					blocksReceivedCount += 1
 
-					if (blockSummaryList.size >= 5) {
+					if (blockSummaryList.size >= blockLimit) {
 						blockSummaryList.removeLast()
 					}
 					blockSummaryList.add(0, it)

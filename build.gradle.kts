@@ -21,6 +21,7 @@ repositories {
 dependencies {
 	implementation(compose.desktop.currentOs)
 	implementation("com.google.code.gson:gson:2.8.6")
+	implementation("br.com.devsrsouza.compose.icons.jetbrains:feather:0.2.0")
 
 	// Reactor
 	implementation("io.projectreactor:reactor-core:3.4.6")
