@@ -15,16 +15,16 @@ object AppState {
 	private const val baseUrl = "http://localhost:8080"
 
 	var blocksReceivedCount by mutableStateOf(0)
-	private set
+		private set
 
 	var lastBlockSummary by mutableStateOf(ShortBlockSummary())
-	private set
+		private set
 
 	const val blockLimitMin = 5
 	const val blockLimitMax = 25
 
 	var blockLimit by mutableStateOf(10)
-	private set
+		private set
 
 	// lastBlockSummary has a private setter
 	val blockSummaryList = mutableStateListOf<ShortBlockSummary>()
@@ -50,7 +50,9 @@ object AppState {
 				.get()
 				.responseContent()
 				.toFlux<ShortBlockSummary>()
-				.subscribe {
+				.doOnError {
+					println("Error processing block: $it")
+				}.subscribe {
 					lastBlockSummary = it
 					blocksReceivedCount += 1
 
